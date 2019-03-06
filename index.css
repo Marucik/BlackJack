@@ -1,0 +1,15 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+section#blackjack-ux {
+    width: 70%;
+    height: 70%;
+    padding: 2.5%;
+    margin: auto;
+    background-color: grey;
+}
+
+section#blackjack-ux > div#blackjack-greeting{
+    background-color: lime;
+}
