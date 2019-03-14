@@ -1,12 +1,12 @@
-let suits = ["Hearts", "Clubs", "Spades", "Diamonds"];
-let values = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
+const suits = ["Hearts", "Clubs", "Spades", "Diamonds"];
+const values = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
 
-let buttons = [
+const buttons = [
     document.querySelector('#newgame-button'),
     document.querySelector('#hit-button'),
     document.querySelector('#stay-button')
 ];
-let logArea = document.querySelector('#blackjack-logger');
+const logArea = document.querySelector('#blackjack-logger');
 
 let gameStarted = false,
     gameOver = false,
@@ -85,8 +85,7 @@ function checkForEndOfGame() {
     updateScores();
 
     if (gameOver) {
-        while(dealerScore < playerScore
-            && playerScore <= 21) {
+        while((dealerScore < playerScore) && (playerScore <= 21)) {
                 dealerCards.push(getNextCard());
                 updateScores();
             }
@@ -191,7 +190,5 @@ function showStatus() {
     } else {
         updateScores();
     }
-    
-
 }
 
