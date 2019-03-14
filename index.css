@@ -13,3 +13,11 @@ section#blackjack-ux {
 section#blackjack-ux > div#blackjack-greeting{
     background-color: lime;
 }
+
+#hit-button {
+    display: none;
+}
+
+#stay-button {
+    display: none;
+}
