@@ -1,18 +1,29 @@
-const suits = ["Hearts", "Clubs", "Spades", "Diamonds"];
-const values = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
 let game;
 
-let newGameButton = document.querySelector('#newgame-button');
-let hitButton = document.querySelector('#hit-button');
-let stayButton = document.querySelector('#stay-button');
+const newGameButton = document.querySelector('.newgameButton');
+const hitButton = document.querySelector('.hitButton');
+const stayButton = document.querySelector('.stayButton');
 
-let logArea = document.querySelector('#blackjack-logger');
+const loggers = document.querySelectorAll('.blackjackLogger');
+var logArea = {
+    player: loggers[0],
+    info: loggers[1],
+    dealer: loggers[2]
+}
+
+const table = document.querySelectorAll('.handContainer');
+var hands = {
+    player: table[0],
+    dealer: table[1]
+}
+
+const cardsDisplay = new CardsDisplay(hands);
 
 newGameButton.addEventListener('click', function() {
     game = new Game(suits, values);
     game.startGame();
     game.initGame();
-    displayNewGame(false);
+    displayNewGameButton(false);
     game.showStatus(logArea);
 });
 
@@ -20,17 +31,20 @@ hitButton.addEventListener('click', function() {
     game.giveCard();
     game.checkForEndOfGame(logArea);
     game.showStatus(logArea);
+    if (game.isGameOver) {
+        displayNewGameButton(true);
+    }
 });
 
 stayButton.addEventListener('click', function() {
     game.overGame();
     game.checkForEndOfGame(logArea);
     game.showStatus(logArea);
-    displayNewGame(true);
+    displayNewGameButton(true);
 });
 
-function displayNewGame(bool) {
-    if(bool === true) {
+function displayNewGameButton(bool) {
+    if (bool === true) {
         newGameButton.style.display = "inline";
         hitButton.style.display = "none";
         stayButton.style.display = "none";

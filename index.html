@@ -8,17 +8,34 @@
     <title>BlackJack</title>
 </head>
 <body>
-    <section id="blackjack-ux">
-        <div id="blackjack-greeting">
+    <header class="blackjackGreeting">
             <h2>Hello HUMAN!</h2>
-            <div>I bet You won't be able to defeat me in a great game of BlackJack. Of course You can try at least, HAHAHA!</div>
+            <div>I bet You won't be able to defeat me in a great game of BlackJack. Of course You can try at least, <b>HAHAHA!</b></div>
+    </header>
+    <main class="blackjackUx">
+        <div class="loggerContainer">
+            <div class="blackjackLogger playerLogger"></div>
+            <div class="blackjackLogger infoLogger"></div>
+            <div class="blackjackLogger dealerLogger"></div>
         </div>
-        <div id="blackjack-logger"></div>
-        <button id="newgame-button">New Game!</button>
-        <button id="hit-button">Hit!</button>
-        <button id="stay-button">Stay</button>
-    </section>
+
+        <div class="tableContainer">
+            <div class="handContainer playerHand">
+
+            </div>
+            <div class="handContainer dealerHand">
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <button class="newgameButton">New Game!</button>
+        <button class="hitButton">Hit!</button>
+        <button class="stayButton">Stay</button>
+    </footer>
     <script src="Game.js"></script>
+    <script src="Ui.js"></script>
+    <script src="cards.js"></script>
     <script src="index.js"></script>
 </body>
 </html>

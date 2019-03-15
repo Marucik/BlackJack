@@ -10,6 +10,18 @@ class Game {
     this._deck = this._createDeck(suits, values)
   }
 
+  get dealerCards() {
+    return this._dealerCards;
+  }
+
+  get playerCards() {
+    return this._playerCards;
+  }
+
+  get isGameOver() {
+    return this._gameOver;
+  }
+
   initGame() {
     this._dealerCards = [this._nextCard(), this._nextCard()];
     this._playerCards = [this._nextCard(), this._nextCard()];
@@ -28,7 +40,7 @@ class Game {
   }
 
   _getCardString(card) {
-    return `${card.value} of ${card.suit}`;
+    return `${card.name} of ${card.suit}`;
   }
 
   _getHandString(hand) {
@@ -39,40 +51,12 @@ class Game {
     return handString;
   }
 
-  _getCardNumericValue(card) {
-    switch (card.value) {
-      case "Ace":
-        return 1;
-      case "Two":
-        return 2;
-      case "Three":
-        return 3;
-      case "Four":
-        return 4;
-      case "Five":
-        return 5;
-      case "Six":
-        return 6;
-      case "Seven":
-        return 7;
-      case "Eight":
-        return 8;
-      case "Nine":
-        return 9;
-      case "Ten":
-      case "Jack":
-      case "Queen":
-      case "King":
-        return 10;
-    }
-  }
-
   _getScore(cards) {
-    let score = 0,
-      hasAce = false;
+    let score = 0;
+    let hasAce = false;
     for (let i = 0; i < cards.length; i++) {
-      score += this._getCardNumericValue(cards[i]);
-      if (cards[i].value === "Ace") {
+      score += cards[i].value;
+      if (cards[i].name === "Ace") {
         hasAce = true;
       }
     }
@@ -89,11 +73,11 @@ class Game {
   }
 
   _showHands(logger) {
-    let dealerCardString = this._getHandString(this._dealerCards),
-        playerCardString = this._getHandString(this._playerCards);
+    let dealerCardString = this._getHandString(this._dealerCards);
+    let playerCardString = this._getHandString(this._playerCards);
 
-    logger.innerText = `AI has:\n ${dealerCardString}(score: ${this._dealerScore})\n\n
-                        You have:\n ${playerCardString}(score: ${this._playerScore})`;
+    logger.dealer.innerText = `AI has:\n ${dealerCardString}(score: ${this._dealerScore})`
+    logger.player.innerText = `You have:\n ${playerCardString}(score: ${this._playerScore})`;
   }
 
   startGame() {
@@ -104,15 +88,16 @@ class Game {
 
   showStatus(logger) {
     if (!this._gameStarted) {
-      logger.innerText = "Press 'New Game!' when you're ready...";
+      logger.info.innerText = "Press 'New Game!' when you're ready...";
     } else if (this._gameOver) {
       if (this._playerWon) {
-        logger.innerText += "\n\nYou were lucky...";
+        logger.info.innerText = "You were lucky...";
       } else {
-        logger.innerText += "\n\nI told you have no chance";
+        logger.info.innerText = "I told you have no chance";
       }
     } else {
       this._updateScores(logger);
+      logger.info.innerText = " ";
     }
   }
 
@@ -120,8 +105,7 @@ class Game {
     this._updateScores(logger);
 
     if (this._gameOver) {
-      while (this._dealerScore < this._playerScore
-        && this._playerScore <= 21) {
+      while (this._dealerScore < this._playerScore && this._playerScore <= 21) {
         this._dealerCards.push(this._nextCard());
         this._updateScores(logger);
       }
@@ -150,8 +134,12 @@ class Game {
     for (let i = 0; i < suits.length; i++) {
       for (let j = 0; j < values.length; j++) {
         let card = {
-          suit: suits[i],
-          value: values[j]
+          name: values[i].name,
+          shortName: values[i].shortName,
+          suit: suits[i].name,
+          value: values[j].value,
+          color: suits[i].color,
+          img: suits[i].img
         };
 
         deck.push(card);
@@ -160,9 +148,7 @@ class Game {
 
     for (let i = 0; i < deck.length; i++) {
       let swapIdx = Math.trunc(Math.random() * deck.length);
-      let temp = deck[i];
-      deck[i] = deck[swapIdx];
-      deck[swapIdx] = temp;
+      [deck[i], deck[swapIdx]] = [deck[swapIdx], deck[i]];
     }
 
     return deck;
