@@ -23,6 +23,8 @@ newGameButton.addEventListener('click', function() {
     game = new Game(suits, values);
     game.startGame();
     game.initGame();
+    // cardsDisplay.clearTable();
+    cardsDisplay.renderCards(game.playerCards, game.dealerCards);
     displayNewGameButton(false);
     game.showStatus(logArea);
 });
@@ -31,6 +33,7 @@ hitButton.addEventListener('click', function() {
     game.giveCard();
     game.checkForEndOfGame(logArea);
     game.showStatus(logArea);
+    cardsDisplay.renderCards(game.playerCards, game.dealerCards);
     if (game.isGameOver) {
         displayNewGameButton(true);
     }
@@ -40,6 +43,7 @@ stayButton.addEventListener('click', function() {
     game.overGame();
     game.checkForEndOfGame(logArea);
     game.showStatus(logArea);
+    cardsDisplay.renderCards(game.playerCards, game.dealerCards);
     displayNewGameButton(true);
 });
 
