@@ -29,6 +29,10 @@ class CardsDisplay {
       cardContainer.appendChild(cardValue);
       card.appendChild(cardContainer);
 
+      if (i === cards.length - 1) {
+        card.classList.add('swipeCard');
+      }
+
       if (hand.lastElementChild === null) {
         hand.appendChild(card);
       } else {

@@ -24,7 +24,7 @@ newGameButton.addEventListener('click', function() {
     game.startGame();
     game.initGame();
     // cardsDisplay.clearTable();
-    cardsDisplay.renderCards(game.playerCards, game.dealerCards);
+    cardsDisplay.renderCards(game.playerCards, game.dealerCards, "both");
     displayNewGameButton(false);
     game.showStatus(logArea);
 });

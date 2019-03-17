@@ -134,8 +134,8 @@ class Game {
     for (let i = 0; i < suits.length; i++) {
       for (let j = 0; j < values.length; j++) {
         let card = {
-          name: values[i].name,
-          shortName: values[i].shortName,
+          name: values[j].name,
+          shortName: values[j].shortName,
           suit: suits[i].name,
           value: values[j].value,
           color: suits[i].color,
